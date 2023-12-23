@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>banlist</title>
+    <style>
+        button {
+            padding: 10px 20px;
+            background-color: #4a90e2;
+            color: #ffffff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        button:hover {
+            background-color: #3461a4;
+        }
+
+        p {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333333;
+            margin-bottom: 10px;
+        }
+
+        html {
+            background-color: #cae4ff;
+            color: #000000;
+        }
+
+        .banContainer {
+            margin-top: 10px;
+            padding: 10px;
+            border: 1px solid #3461a4;
+            border-radius: 5px;
+            background-color: #ffffff;
+            margin-bottom: 5px;
+            position: relative;
+        }
+
+        .tagsContainer {
+            font-size: 12px;
+            color: #555555;
+            margin-top: 5px;
+        }
+
+        .tagBox {
+            display: inline-block;
+            padding: 3px 6px;
+            background-color: #eee;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            margin-right: 5px;
+        }
+
+        .tan {
+            display: inline-block;
+            padding: 3px 6px;
+            background-color: #868585;
+            border: 1px solid #7da4b4;
+            border-radius: 3px;
+            margin-right: 5px;
+        }
+
+        .detailsBox {
+            display: none;
+            padding: 10px;
+            border: 1px solid #3461a4;
+            border-radius: 5px;
+            background-color: #ffffff;
+            margin-top: 5px;
+        }
+
+        .detailsContainer {
+            margin-top: 10px;
+        }
+
+        .banContainer {
+            cursor: pointer;
+        }
+
+        .imageContainer {
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .banImage {
+            max-width: 100%;
+            max-height: 300px;
+        }
+
+        #search {
+            padding: 8px;
+            border: 1px solid #3461a4;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            font-size: 14px;
+            background-image: url('search-icon.png');
+            background-size: 16px;
+            background-position: 8px 50%;
+            background-repeat: no-repeat;
+            padding-left: 30px;
+        }
+    </style>
+</head>
+<body>
+    <input type="text" id="search" oninput="filterbanList()" placeholder="検索">
+    <div id="resultContainer"></div>
+    <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSeNmtqYFfi371wzt9cvb_WBcTtbySOzIBNX7d52nj6zMFc8_w/viewform?embedded=true" width="300" height="500" frameborder="0" marginheight="0" marginwidth="0">読み込んでいます…</iframe>
+    <script>
+        const banlist = [
+            { type: "minecraft", name: "Shadowwolf7433", tags: ["nuker", "採掘サバ","チート"], details: "画像はkickですが今はbanされてます", image:"Shadowwolf7433.png" },
+
+            { type: "minecraft", name: "rituto13", tags: ["testban", "test"], details: "昔testでbanされました", image: "rituto13.png" },
+
+        ];
+
+        function filterbanList() {
+            const searchTerm = document.getElementById("search").value.toLowerCase();
+
+            const filteredbanList = banlist.filter(function (ban) {
+                const lowerCaseType = ban.type.toLowerCase();
+                const lowerCaseName = ban.name.toLowerCase();
+                const includesSearchTerm = lowerCaseName.includes(searchTerm) ||
+                                          lowerCaseType.includes(searchTerm) ||
+                                          ban.tags.some(tag => tag.toLowerCase().includes(searchTerm));
+                return includesSearchTerm;
+            });
+
+            displaybanList(filteredbanList);
+        }
+
+        function displaybanList(bans = banlist) {
+            const resultContainer = document.getElementById("resultContainer");
+
+            resultContainer.innerHTML = "";
+
+            bans.forEach(function (ban) {
+                const banDiv = document.createElement("div");
+                banDiv.className = "banContainer";
+                banDiv.textContent = `名前: ${ban.name}              ,クリックで詳細を表示`;
+
+                const tagsAndTypeContainer = document.createElement("div");
+                tagsAndTypeContainer.className = "tagsContainer";
+
+                const typeBox = document.createElement("div");
+                typeBox.className = "tan";
+                typeBox.textContent = "タイプ:" + ban.type;
+                tagsAndTypeContainer.appendChild(typeBox);
+
+                ban.tags.forEach(function (tag) {
+                    const tagBox = document.createElement("div");
+                    tagBox.className = "tagBox";
+                    tagBox.textContent = tag;
+                    tagsAndTypeContainer.appendChild(tagBox);
+                });
+
+                banDiv.appendChild(tagsAndTypeContainer);
+
+                const detailsContainer = document.createElement("div");
+                detailsContainer.className = "detailsContainer";
+
+                const detailsBox = document.createElement("div");
+                detailsBox.className = "detailsBox";
+                detailsBox.textContent = ban.details;
+                detailsContainer.appendChild(detailsBox);
+
+                // 画像を表示するコンテナ
+                const imageContainer = document.createElement("div");
+                imageContainer.className = "imageContainer";
+
+                // 画像を表示する要素
+                const banImage = document.createElement("img");
+                banImage.className = "banImage";
+                banImage.src = ban.image;
+                imageContainer.appendChild(banImage);
+
+                detailsContainer.appendChild(imageContainer);
+
+                resultContainer.appendChild(banDiv);
+
+                // クリックイベントを追加して詳細情報を表示
+                banDiv.onclick = function () {
+                    toggleDetails(detailsContainer);
+                };
+
+                // 詳細情報を追加
+                banDiv.appendChild(detailsContainer);
+            });
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            displaybanList();
+        });
+
+        function toggleDetails(detailsContainer) {
+            const detailsBox = detailsContainer.querySelector(".detailsBox");
+            detailsBox.style.display = detailsBox.style.display === "none" ? "block" : "none";
+            const detailsBo = detailsContainer.querySelector(".imageContainer");
+            detailsBo.style.display = detailsBo.style.display === "none" ? "block" : "none";
+
+
+        }
+    </script>
+</body>
+</html>
