@@ -198,7 +198,7 @@
 
         function toggleDetails(detailsContainer) {
             const detailsBox = detailsContainer.querySelector(".detailsBox");
-            detailsBox.style.display = detailsBox.style.display === "none" ? "block" : "none";
+            detailsBox.style.display = detailsBox.style.display !== "none" ? "block" : "none";
             const detailsBo = detailsContainer.querySelector(".imageContainer");
             detailsBo.style.display = detailsBo.style.display === "none" ? "block" : "none";
 
