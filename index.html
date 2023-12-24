@@ -85,6 +85,7 @@
         .imageContainer {
             text-align: center;
             margin-top: 10px;
+            display: none;
         }
 
         .banImage {
@@ -111,13 +112,12 @@
     <div id="resultContainer"></div>
     <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSeNmtqYFfi371wzt9cvb_WBcTtbySOzIBNX7d52nj6zMFc8_w/viewform?embedded=true" width="300" height="500" frameborder="0" marginheight="0" marginwidth="0">読み込んでいます…</iframe>
     <script>
-        const banlist = [
+ const banlist = [
             { type: "minecraft", name: "Shadowwolf7433", tags: ["nuker", "採掘サバ","チート","他のサバでのban"], details: "画像はkickですが今はbanされてます", image:"Shadowwolf7433.png" },
 
             { type: "minecraft", name: "rituto13", tags: ["testban", "test"], details: "昔testでbanされました", image: "rituto13.png" },
             {type:"mineraft",name:"nikoichi0229422",tags:["他のサバでのban","採掘サバ","意外と有名?"], details: "他のサバでban知ってる人おおいいいかも",image:"画像無し.png"}
         ];
-
         function filterbanList() {
             const searchTerm = document.getElementById("search").value.toLowerCase();
 
@@ -182,12 +182,10 @@
 
                 resultContainer.appendChild(banDiv);
 
-                // クリックイベントを追加して詳細情報を表示
                 banDiv.onclick = function () {
                     toggleDetails(detailsContainer);
                 };
 
-                // 詳細情報を追加
                 banDiv.appendChild(detailsContainer);
             });
         }
@@ -198,7 +196,7 @@
 
         function toggleDetails(detailsContainer) {
             const detailsBox = detailsContainer.querySelector(".detailsBox");
-            detailsBox.style.display = detailsBox.style.display !== "none" ? "block" : "none";
+            detailsBox.style.display = detailsBox.style.display === "none" ? "block" : "none";
             const detailsBo = detailsContainer.querySelector(".imageContainer");
             detailsBo.style.display = detailsBo.style.display === "none" ? "block" : "none";
 
