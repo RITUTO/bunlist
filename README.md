@@ -1,1 +1,1 @@
-https://rituto.github.io/bunlist/
+https://rituto.github.io/ritutohomepeig/home.html
