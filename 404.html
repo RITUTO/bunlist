@@ -5,7 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>404エラー</title>
     <img src="https://1.bp.blogspot.com/-lGOEBC53sNk/WvQHXNpNfiI/AAAAAAABL6I/EF8b66sqJicObf9JkISl-cuvfc5m4EUrACLcBGAs/s800/internet_404_page_not_found_j.png">
+    <div class="linkbox">
     <a href=home.html>ホームへ戻る</a>
+    </div>
 </head>
 <body>
     <style>
@@ -13,6 +15,25 @@
             background-color: #cae4ff;
             color: #000000;
         }
+        .linkbox {
+    position: relative;
+}
+.linkbox a {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height:100%;
+    width: 100%;
+}
+
+/* 以下見た目をわかりやすくするための設定*/
+.linkbox {
+    border: solid 2px #000000;
+}
+.linkbox a:hover{/* マウスオーバー時に色変更*/
+    opacity: 0.1;
+    background-color: #000000;
+}
     </style>
 </body>
 </html>
