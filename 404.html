@@ -21,21 +21,6 @@
     </style>
     <script>
 
-  function checkFileExists(url, callback) {
-    var xhr = new XMLHttpRequest();
-    xhr.onreadystatechange = function () {
-      if (xhr.readyState === 4) {
-        callback(xhr.status === 200);
-      }
-    };
-    xhr.open('HEAD', url, true);
-    xhr.send();
-  }
-
-console.log(window.location.href.replace("https://rituto.github.io/ritutohomepeig/",""))
-  if ( window.location.href.replace("https://rituto.github.io/ritutohomepeig/","") == "tool"){
-    window.location.href = "tool.html"
-  }
 
     </script>
 </body>
