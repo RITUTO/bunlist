@@ -8,9 +8,9 @@
 <body>
     <div class="container">
         <ol class="breadcrumb-004">
-            <li><a href="../home">ホーム</a></li>
-            <li><a href="../tool">tool</a></li>
-            <li><a href="manifestGenerator">manifestGenerator</a></li>
+            <li><a href="../home.html">ホーム</a></li>
+            <li><a href="../tool/">tool</a></li>
+            <li><a href="#">manifestGenerator</a></li>
         </ol>
         <p>作品のタイトル</p>
         <input type="text" id="title">
@@ -25,14 +25,6 @@
                 <option value="script">script api(gametest)</option>
             </select>
         </label>
-        <p>gametestのバージョン(タイプがscript api(gametest)の時のみ)</p>
-        <label class="box">
-            <select id="c">
-                <option value="1.8.0-beta">1.8.0-beta</option>
-                <option value="1.7.0-beta">1.7.0-beta</option>
-                <option value="1.6.0-beta">1.6.0-beta</option>
-            </select>
-        </label>
     <p>メインフォルダー(タイプがscript api(gametest)の時のみ)</p>
         <label class="box">
             <select id="b">
@@ -43,18 +35,39 @@
             </select>
         </label>
         <br>
-        <button onclick="a()">生成</button>
+        <button onclick="a()">生成</button>        <button onclick="if (document.getElementById('t').value == ``){
+            alert('エラー生成されてないためコピーできませんでした')
+            return false
+        }else{
+            copyToClipboard(document.getElementById('t').value)
+            alert('クリップボードにコピーしました')
+        }
+        ">クリップボードにコピー</button><button onclick="hozonn()">保存</button>  
+
         <p>生成した結果</p>
         <textarea readonly id="t" class="t"></textarea>
     </div>
     <script>
+        function hozonn(){
+            if (document.getElementById('t').value == ``){
+            alert('エラー生成されてないためコピーできませんでした')
+            return false
+        }
+        var blob = new Blob([document.getElementById('t').value], { type: 'text/html' });
+        var link = document.createElement('a');
+        link.href = window.URL.createObjectURL(blob);
+        link.download = "manifest.json";
+        link.click();
+    
+
+        }
         function a(){
         const type = document.getElementById('a').value
         const title = document.getElementById('title').value
         const description = document.getElementById('description').value
         const scripttype = document.getElementById('b').value
 
-        var ver = document.getElementsByName('c').value
+        var ver = "1.8.0-beta"
 
  if (title == ""){
             alert('タイトルを記入してください')
@@ -164,7 +177,19 @@ return false
 function uuid(){
             return self.crypto.randomUUID();
         }
-    </script>
+        function copyToClipboard (tagValue) {
+  if (navigator.clipboard) {
+    return navigator.clipboard.writeText(tagValue).then(function () {
+      messageActive()
+    })
+  } else {
+    tagText.select()
+    document.execCommand('copy')
+    messageActive()
+  }
+}
+
+</script>
     <style>
          button {
             padding: 10px 20px;
