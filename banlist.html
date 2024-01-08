@@ -4,53 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>banlist</title>
-    <ol class="breadcrumb-004">
-            <li><a href="home">ホーム</li>
-    <li><a href="banlist">banlist</a></li>
-</ol>
     <style>
-        .breadcrumb-004 {
-    display: flex;
-    gap: 0 20px;
-    list-style: none;
-    padding: 6px 0 6px 18px;
-    border-radius: 3px;
-    overflow: hidden;
-    background-color: #2589d0;
-    font-size: .9em;
-}
-
-.breadcrumb-004 li {
-    display: flex;
-    align-items: center;
-    position: relative;
-    padding-right: 20px;
-}
-
-.breadcrumb-004 li:not(:last-child)::before,
-.breadcrumb-004 li:not(:last-child)::after{
-    position: absolute;
-    width: 0;
-    height: 0;
-    border-top: 20px solid transparent;
-    border-bottom: 20px solid transparent;
-    content:'';
-}
-
-.breadcrumb-004 li:not(:last-child)::before{
-    right: 0;
-    border-left: 10px solid #fff;
-}
-
-.breadcrumb-004 li:not(:last-child)::after{
-    right: 2px;
-    border-left: 10px solid #2589d0;
-}
-
-.breadcrumb-004 a {
-    color: #fff;
-    text-decoration: none;
-}
         button {
             padding: 10px 20px;
             background-color: #4a90e2;
@@ -158,13 +112,27 @@
     <div id="resultContainer"></div>
     <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSeNmtqYFfi371wzt9cvb_WBcTtbySOzIBNX7d52nj6zMFc8_w/viewform?embedded=true" width="300" height="500" frameborder="0" marginheight="0" marginwidth="0">読み込んでいます…</iframe>
     <script>
+document.addEventListener("DOMContentLoaded", function () {
+        const urlSearchParams = new URLSearchParams(window.location.search);
+        const searchParam = urlSearchParams.get("search");
+
+        const searchInput = document.getElementById("search");
+        searchInput.value = searchParam || "";
+
+        setTimeout(function () {
+            filterbanList();
+        }, 100);
+
+    });
+    </script>
+    <script>
  const banlist = [
             { type: "minecraft", name: "Shadowwolf7433", tags: ["nuker", "採掘サバ","チート","他のサバでのban"], details: "画像はkickですが今はbanされてます", image:"Shadowwolf7433.png" },
 
             { type: "minecraft", name: "rituto13", tags: ["testban", "test"], details: "昔testでbanされました", image: "rituto13.png" },
             {type:"mineraft",name:"nikoichi0229422",tags:["他のサバでのban","採掘サバ","意外と有名?"], details: "他のサバでban知ってる人多いいかも",image:"画像無し.png"},
-             {type:"discord",name:"minill_neo.n ",tags:["discordban","ルール違反","スパム"],details:"ルールにスパムしないと書いてたのにスパムしてたのとMineraftをクラッシュさせられました",image:"画像無し.png"},
-                  {type:"discord",name:"watakemo ",tags:["discordban","ルール違反","スパム",],details:"ルールにスパムしないと書いてたのにスパムしてたのとMineraftをクラッシュさせられました",image:"画像無し.png"}
+             {type:"discord",name:"minill_neo.n ",tags:["discordban","ルール違反","スパム","rituto採掘鯖"],details:"ルールにスパムしないと書いてたのにスパムしてたのとMineraftをクラッシュさせられました",image:"画像無し.png"},
+                  {type:"discord",name:"watakemo ",tags:["discordban","ルール違反","スパム","rituto採掘鯖"],details:"ルールにスパムしないと書いてたのにスパムしてたのとMineraftをクラッシュさせられました",image:"画像無し.png"}
 
             ]
         function filterbanList() {
